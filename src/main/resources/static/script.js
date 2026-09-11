@@ -78,6 +78,42 @@ function renderPage() {
   results.append(summary, solutions, pagination);
 }
 
+function findSolutions(n) {
+  const solutions = [];
+  const columns = new Set();
+  const leftDiagonals = new Set();
+  const rightDiagonals = new Set();
+  const queenColumns = Array(n).fill(-1);
+
+  function place(row) {
+    if (row === n) {
+      solutions.push(queenColumns.map(queenColumn =>
+        '.'.repeat(queenColumn) + 'Q' + '.'.repeat(n - queenColumn - 1)
+      ));
+      return;
+    }
+
+    for (let column = 0; column < n; column += 1) {
+      const leftDiagonal = row - column;
+      const rightDiagonal = row + column;
+      if (columns.has(column) || leftDiagonals.has(leftDiagonal) || rightDiagonals.has(rightDiagonal)) {
+        continue;
+      }
+      columns.add(column);
+      leftDiagonals.add(leftDiagonal);
+      rightDiagonals.add(rightDiagonal);
+      queenColumns[row] = column;
+      place(row + 1);
+      columns.delete(column);
+      leftDiagonals.delete(leftDiagonal);
+      rightDiagonals.delete(rightDiagonal);
+    }
+  }
+
+  place(0);
+  return solutions;
+}
+
 async function solve() {
   const n = Number(input.value);
   if (!Number.isInteger(n) || n < 1 || n > 12) {
@@ -90,10 +126,9 @@ async function solve() {
   setMessage('Solving…', true);
   results.replaceChildren();
   try {
-    const response = await fetch('/api/nqueens/solve', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ n }) });
-    const contentType = response.headers.get('content-type') || '';
-    const payload = contentType.includes('application/json') ? await response.json() : null;
-    if (!response.ok) throw new Error(payload?.message || 'Unable to solve this board.');
+    await new Promise(resolve => setTimeout(resolve, 0));
+    const solutions = findSolutions(n);
+    const payload = { n, solutionCount: solutions.length, solutions };
     setMessage('');
     currentResponse = payload;
     currentPage = 1;
