@@ -1,9 +1,13 @@
+---
 title: N-Queens Visualizer
 emoji: 🏁
 colorFrom: blue
 colorTo: green
 sdk: docker
+sdk_version: ""
 app_port: 7860
+pinned: false
+---
 
 # N-Queens Visualizer
 
