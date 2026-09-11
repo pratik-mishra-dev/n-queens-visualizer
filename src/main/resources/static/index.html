@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Find and view every solution to the N-Queens puzzle.">
+  <title>N-Queens Visualizer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <p class="eyebrow">BACKTRACKING PUZZLE</p>
+      <h1>N-Queens Visualizer</h1>
+      <p class="intro">Place N queens on an N × N board so that none can attack another.</p>
+    </header>
+    <section class="controls" aria-label="Solver controls">
+      <label for="n-input">Enter N <span>(1–12)</span></label>
+      <div class="control-row">
+        <input id="n-input" type="number" min="1" max="12" step="1" value="8" inputmode="numeric" required>
+        <button id="solve-button" type="button">Solve</button>
+      </div>
+      <p id="message" class="message" role="status" aria-live="polite"></p>
+    </section>
+    <section id="results" aria-live="polite" aria-label="N-Queens solutions"></section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
