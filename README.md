@@ -1,3 +1,12 @@
+---
+title: N-Queens Visualizer
+emoji: chess_pawn
+colorFrom: blue
+colorTo: green
+sdk: docker
+app_port: 7860
+---
+
 # N-Queens Visualizer
 
 A single Spring Boot web application that finds every valid N-Queens arrangement using Java backtracking and displays each arrangement as an interactive browser board.
